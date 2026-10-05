@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Synthetic UK energy data and AI quality project built around Informatica IDMC.">
+  <title>Trusted Energy Data — Data &amp; AI Quality</title>
+  <style>
+    :root{--ink:#102522;--muted:#657873;--paper:#f5f7f1;--white:#fff;--green:#087b66;--lime:#c6ee6d;--line:#dce5dc;--orange:#f4a259;--red:#b94b45;--shadow:0 24px 75px #17372b1c}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#e9efe8;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+    .deck{max-width:1440px;margin:auto;padding:22px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px;min-height:100vh}
+    aside{position:sticky;top:22px;align-self:start;height:calc(100vh - 44px);min-height:540px;background:#122923;color:#edf4eb;border-radius:24px;padding:23px 16px;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+    .brand{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#98b4a7;font-weight:750;padding:4px 10px 22px}.brand b{display:block;color:var(--lime);font-size:14px;letter-spacing:.1em;margin-bottom:5px}
+    nav{display:grid;gap:7px}nav button{background:none;border:0;text-align:left;color:#b8c9c1;border-radius:12px;padding:11px 10px;font:inherit;font-size:13px;cursor:pointer}nav button:hover,nav button[aria-current="step"]{background:#254138;color:white}nav button span{color:#92a99e;margin-right:10px;font-variant-numeric:tabular-nums}
+    .aside-note{margin-top:auto;border-top:1px solid #355047;padding:15px 10px 0;color:#9cb2a7;font-size:11px;line-height:1.5}
+    main{min-width:0}.toolbar{display:flex;align-items:center;justify-content:space-between;padding:2px 6px 14px;color:#586b64;font-size:12px}.keys{opacity:.82}.controls{display:flex;gap:7px}.controls button{border:1px solid #d1ddd2;background:#f7faf5;color:#18372e;padding:8px 12px;border-radius:10px;font:inherit;cursor:pointer}.controls button:hover{border-color:var(--green)}
+    .slide{display:none;min-height:calc(100vh - 92px);background:var(--paper);border:1px solid #e1e8de;border-radius:26px;box-shadow:var(--shadow);padding:clamp(28px,5vw,70px);overflow:hidden;position:relative}.slide.active{display:flex;flex-direction:column;animation:enter .3s ease-out}@keyframes enter{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+    .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--green);font-weight:800;margin:0 0 14px}.slide h1,.slide h2{max-width:950px;letter-spacing:-.045em;line-height:1.02;margin:0 0 20px}.slide h1{font-size:clamp(44px,7vw,88px)}.slide h2{font-size:clamp(34px,5vw,58px)}.lede{max-width:760px;color:#50655d;font-size:clamp(17px,2vw,22px);line-height:1.55}.tag{display:inline-flex;align-items:center;gap:8px;background:#e4f2cf;color:#30533b;padding:9px 12px;border-radius:999px;font-size:12px;font-weight:700;margin:14px 8px 0 0}.tag:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green)}
+    .hero{background:radial-gradient(circle at 87% 20%,#d8edb6 0,transparent 26%),linear-gradient(130deg,#f8faf3,#e6f0e1)}.hero:after{content:"";position:absolute;width:350px;height:350px;border:1px solid #8cae883d;border-radius:50%;right:-95px;bottom:-135px;box-shadow:0 0 0 38px #8cae8812,0 0 0 78px #8cae880b}.hero-bottom{margin-top:auto;display:flex;align-items:end;justify-content:space-between;gap:20px;position:relative;z-index:1}.hero-bottom small{max-width:470px;color:var(--muted);line-height:1.55}.hero-mark{font-size:92px;line-height:.8;color:#7daa77;font-weight:850;letter-spacing:-.1em}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:25px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.card{border:1px solid var(--line);border-radius:17px;padding:19px;background:#fff}.card h3{margin:0 0 9px;font-size:17px;letter-spacing:-.02em}.card p,.card li{margin:0;color:#5f716b;line-height:1.55;font-size:14px}.card ul{padding-left:18px;margin:0;display:grid;gap:7px}.n{font-size:11px;font-weight:800;color:var(--green);letter-spacing:.1em;margin-bottom:13px}.callout{background:#15372f;color:#edf5ec;border-radius:18px;padding:22px 25px;margin-top:20px;line-height:1.55}.callout strong{color:var(--lime)}
+    .flow{display:flex;align-items:stretch;gap:9px;margin:30px 0 14px}.node{flex:1;background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 12px;text-align:center;font-weight:750;font-size:13px}.node small{display:block;color:var(--muted);font-weight:450;font-size:11px;line-height:1.45;margin-top:8px}.arrow{align-self:center;color:var(--green);font-weight:900}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:15px;margin-top:20px;background:white}table{width:100%;border-collapse:collapse;min-width:720px}th,td{text-align:left;padding:12px 14px;border-bottom:1px solid #edf1eb;font-size:13px;vertical-align:top}th{background:#edf4e9;color:#3e5c4d;font-size:11px;text-transform:uppercase;letter-spacing:.08em}td{color:#546760}td:first-child{font-weight:800;color:#183e32}tr:last-child td{border-bottom:0}.pill{white-space:nowrap;background:#f8e6d4;color:#8d511f;border-radius:99px;padding:4px 8px;font-size:11px;font-weight:750}
+    .metric{font-size:34px;font-weight:850;letter-spacing:-.06em;color:#183d31}.metric-label{font-size:12px;color:var(--muted);margin-top:5px}.note{color:#77857e;font-size:11px;line-height:1.5;margin-top:14px}.steps{counter-reset:item;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:24px}.step{counter-increment:item;display:grid;grid-template-columns:36px 1fr;gap:11px;background:#fff;border:1px solid var(--line);padding:15px;border-radius:15px}.step:before{content:counter(item,decimal-leading-zero);color:var(--green);font-weight:850}.step b{display:block;font-size:14px;margin-bottom:4px}.step span{font-size:12px;color:var(--muted);line-height:1.45}
+    .footer{margin-top:auto;padding-top:20px;color:#839089;font-size:10px;display:flex;justify-content:space-between;gap:12px}.bar{height:4px;background:#dbe5d9;border-radius:8px;margin-top:13px;overflow:hidden}.bar i{height:100%;display:block;background:var(--green);width:0;transition:width .25s}
+    @media(max-width:850px){.deck{grid-template-columns:1fr;padding:10px;gap:10px}aside{position:relative;top:auto;height:auto;min-height:unset;padding:12px;border-radius:17px}.brand{padding:5px 7px 10px}.brand b{display:inline;margin-right:8px}nav{display:flex;overflow:auto;gap:4px}nav button{white-space:nowrap;padding:8px}.aside-note{display:none}.slide{min-height:78vh;border-radius:19px;padding:28px 22px}.grid{grid-template-columns:1fr}.grid.two,.steps{grid-template-columns:1fr}.flow{flex-wrap:wrap}.node{min-width:30%}.hero-mark{font-size:55px}.toolbar{padding:2px 4px 10px}.keys{display:none}}
+    @media print{body{background:white}.deck{display:block;padding:0;max-width:none}aside,.toolbar{display:none}.slide,.slide.active{display:flex;min-height:100vh;border:0;border-radius:0;box-shadow:none;page-break-after:always;animation:none}.slide:last-of-type{page-break-after:auto}}
+  </style>
+</head>
+<body>
+<div class="deck">
+  <aside>
+    <div class="brand"><b>FIELD GUIDE / 2026</b>DATA &amp; AI QUALITY</div>
+    <nav aria-label="Presentation slides">
+      <button aria-current="step" data-slide="0"><span>01</span>Project</button>
+      <button data-slide="1"><span>02</span>Case</button>
+      <button data-slide="2"><span>03</span>Controls</button>
+      <button data-slide="3"><span>04</span>Informatica</button>
+      <button data-slide="4"><span>05</span>AI with oversight</button>
+      <button data-slide="5"><span>06</span>Delivery</button>
+      <button data-slide="6"><span>07</span>Interview</button>
+    </nav>
+    <div class="aside-note">Synthetic portfolio scenario.<br>All people, systems and demo values are invented.</div>
+  </aside>
+  <main>
+    <div class="toolbar"><div><b id="counter">01 / 07</b> &nbsp;·&nbsp; <span id="sectionTitle">Project</span></div><div class="controls"><span class="keys">Use ← → keys</span><button id="prev" type="button" aria-label="Previous slide">←</button><button id="next" type="button" aria-label="Next slide">Next →</button></div></div>
+
+    <section class="slide active hero" aria-label="Slide 1: Project">
+      <p class="eyebrow">UK energy · customer-to-bill trust</p>
+      <h1>Make data<br>trust visible.</h1>
+      <p class="lede">A practical Data &amp; AI Quality programme for fragmented customer, account, meter, reading and billing data, mapped to Informatica IDMC.</p>
+      <div><span class="tag">Synthetic case study</span><span class="tag">IDMC build guide</span><span class="tag">Human-led AI</span></div>
+      <div class="hero-bottom"><small>Built as an interview portfolio project for a Data Quality Lead or Manager. UK context is sourced; the supplier and all defects are fictional.</small><div class="hero-mark">DQ<br>×AI</div></div>
+      <div class="footer"><span>INFORMATICA · CLOUD DATA QUALITY + DATA INTEGRATION</span><span>01</span></div>
+    </section>
+
+    <section class="slide" aria-label="Slide 2: Case">
+      <p class="eyebrow">01 / the case</p><h2>A broken chain hides the cause.</h2>
+      <p class="lede">In the fictional Northstar Energy scenario, fragmented platforms disagree on who the customer is, which premise and meter an account belongs to, and whether a read supports a bill.</p>
+      <div class="flow">
+        <div class="node">Customer<small>CRM, acquired legacy records</small></div><div class="arrow">→</div>
+        <div class="node">Account<small>billing IDs, status codes</small></div><div class="arrow">→</div>
+        <div class="node">Premise + meter<small>effective dates, fuel, unit</small></div><div class="arrow">→</div>
+        <div class="node">Read + bill<small>provenance, period, linkage</small></div>
+      </div>
+      <div class="grid">
+        <div class="card"><div class="n">THE PAIN</div><h3>Manual reconciliation</h3><p>Operators investigate mismatched identifiers, stale reads and conflicting event dates by hand.</p></div>
+        <div class="card"><div class="n">THE RISK</div><h3>Unclear evidence</h3><p>A bill-to-read link can look present while pointing at the wrong meter or provenance.</p></div>
+        <div class="card"><div class="n">THE RESPONSE</div><h3>Rules + ownership</h3><p>Profile each source, define controls with business owners and route uncertainty to stewards.</p></div>
+      </div>
+      <div class="callout"><strong>Evidence boundary:</strong> this is a plausible fictional scenario. It makes no allegation about Octopus, E.ON, British Gas, OVO or any other named supplier, and includes no measured sector defect rate.</div>
+      <div class="footer"><span>Problem statement and assumptions → docs/01-project-brief.md</span><span>02</span></div>
+    </section>
+
+    <section class="slide" aria-label="Slide 3: Controls">
+      <p class="eyebrow">02 / control framework</p><h2>Every rule has a decision owner.</h2>
+      <p class="lede">Measure what can be proved at the right grain. Treat absent evidence as unknown, never as a pass.</p>
+      <div class="grid">
+        <div class="card"><div class="metric">30</div><div class="metric-label">proposed catalogue rules</div></div>
+        <div class="card"><div class="metric">9</div><div class="metric-label">quality / control dimensions covered</div></div>
+        <div class="card"><div class="metric">3</div><div class="metric-label">explicit outcomes: pass · fail · unknown</div></div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>Critical control</th><th>What it asks</th><th>Failure path</th></tr></thead><tbody>
+        <tr><td>Account → customer</td><td>Does the referenced customer exist?</td><td>Quarantine the broken relationship; owner review</td></tr>
+        <tr><td>Bill → meter read</td><td>Does the read exist and belong to this meter?</td><td>Hold for billing review; never silently substitute</td></tr>
+        <tr><td>Read provenance</td><td>Does bill provenance agree with its source event?</td><td>Review source mappings and bill evidence</td></tr>
+        <tr><td>Detailed-data access</td><td>Is access/use permitted for this purpose and granularity?</td><td>Prevent use; escalate under approved privacy policy</td></tr>
+      </tbody></table></div>
+      <p class="note">Counts describe this project pack, not a measurement. Thresholds are owner-approved project choices; none are presented as legal limits.</p>
+      <div class="footer"><span>Full definitions, severity, owner and action → docs/03-rule-catalogue.md</span><span>03</span></div>
+    </section>
+
+    <section class="slide" aria-label="Slide 4: Informatica">
+      <p class="eyebrow">03 / IDMC implementation</p><h2>Discover → design → apply → measure.</h2>
+      <p class="lede">A reusable operating loop that keeps profiling, business definitions and production routing connected.</p>
+      <div class="flow">
+        <div class="node">Discover<small>Data Profiling<br>patterns, nulls, keys</small></div><div class="arrow">→</div>
+        <div class="node">Design<small>Cloud Data Quality<br>approved rule assets</small></div><div class="arrow">→</div>
+        <div class="node">Apply<small>Data Integration<br>map, route, log</small></div><div class="arrow">→</div>
+        <div class="node">Measure<small>scorecards + queue<br>trend, triage, improve</small></div>
+      </div>
+      <div class="grid two">
+        <div class="card"><h3>Two governed outputs</h3><ul><li>Curated, eligible records with source and rule-version lineage</li><li>Exceptions with key, batch, run, rule, reason and disposition</li><li>Separate technical load failures from quality failures</li></ul></div>
+        <div class="card"><h3>Release safeguards</h3><ul><li>Shadow run and steward calibration</li><li>Business-owned thresholds and exception policy</li><li>Idempotent replay, reconciliation and rollback criteria</li></ul></div>
+      </div>
+      <div class="callout"><strong>Implementation status:</strong> this repository contains a tenant-independent build specification and SQL reference. No Informatica tenant or licence was supplied, so no native asset was deployed or run. Validate exact connectors, licensing and service behavior in the target tenant.</div>
+      <div class="footer"><span>A–Z build sequence → docs/02-build-guide.md</span><span>04</span></div>
+    </section>
+
+    <section class="slide" aria-label="Slide 5: AI with oversight">
+      <p class="eyebrow">04 / practical AI</p><h2>AI helps the team see sooner.</h2>
+      <p class="lede">The quality gate stays deterministic. AI proposes patterns and priorities; a person decides consequential changes.</p>
+      <div class="grid">
+        <div class="card"><div class="n">01 · SIGNAL</div><h3>Source drift detection</h3><p>Rank unusual shifts in nulls, codes, volumes and freshness. Engineer confirms cause.</p></div>
+        <div class="card"><div class="n">02 · PRIORITISE</div><h3>Exception queue</h3><p>Suggest work order from severity, age and approved impact attributes. Steward can override.</p></div>
+        <div class="card"><div class="n">03 · ASSIST</div><h3>Rule drafting</h3><p>Draft a rule from an owner definition and synthetic examples. Peer review before execution.</p></div>
+      </div>
+      <div class="grid two">
+        <div class="card"><h3>Hard boundaries</h3><ul><li>No inferred consent or missing-read generation</li><li>No automatic customer merge or bill alteration</li><li>No real personal data sent to public AI</li><li>Suggestions are not evidence of correctness</li></ul></div>
+        <div class="card"><h3>Assurance gates</h3><ul><li>Purpose, minimisation and approved access</li><li>Privacy, security and model-risk review</li><li>Shadow comparison, error and drift monitoring</li><li>Human override, incident route and rollback</li></ul></div>
+      </div>
+      <div class="footer"><span>Use-case design and assurance checklist → docs/04-ai-and-assurance.md</span><span>05</span></div>
+    </section>
+
+    <section class="slide" aria-label="Slide 6: Delivery">
+      <p class="eyebrow">05 / delivery plan</p><h2>Start small. Prove the control.</h2>
+      <div class="steps">
+        <div class="step"><div><b>Discover sources</b><span>Agree grain, keys, meanings, timestamps, contracts and decision owners.</span></div></div>
+        <div class="step"><div><b>Profile + baseline</b><span>Capture actual distributions and denominators; do not invent rates.</span></div></div>
+        <div class="step"><div><b>Prioritise rules</b><span>Approve critical links, provenance, consent controls and steward actions.</span></div></div>
+        <div class="step"><div><b>Build reusable assets</b><span>Version Informatica rules, reference mappings and exception routing.</span></div></div>
+        <div class="step"><div><b>Shadow + calibrate</b><span>Review false positives, unknowns, queue capacity and replay behavior.</span></div></div>
+        <div class="step"><div><b>Release + monitor</b><span>Promote with owner sign-off, alerts, rollback criteria and change triggers.</span></div></div>
+      </div>
+      <div class="callout"><strong>Success measures:</strong> critical exceptions with owners and evidence; reconciled input/pass/fail/unknown counts; trend by source and rule; ageing and recurrence; safe release decisions. A blended quality score is secondary.</div>
+      <div class="footer"><span>Run the synthetic SQL walkthrough → sql/</span><span>06</span></div>
+    </section>
+
+    <section class="slide" aria-label="Slide 7: Interview">
+      <p class="eyebrow">06 / interview narrative</p><h2>Show the judgement, not just the rules.</h2>
+      <p class="lede">“I built a synthetic customer-to-bill data quality programme, grounded in public UK guidance and implemented as an Informatica IDMC build specification.”</p>
+      <div class="grid two">
+        <div class="card"><h3>What makes it credible</h3><ul><li>Names and sample records are explicitly fictional</li><li>Public sources support context, not supplier allegations</li><li>Unknown is visible; no invented baseline rates</li><li>IDMC assets are specified, not claimed as deployed</li></ul></div>
+        <div class="card"><h3>What to ask the client</h3><ul><li>Which system owns each key and status?</li><li>What precisely makes a read bill-eligible?</li><li>What happens when evidence is missing?</li><li>Which IDMC edition, connectors and runtimes exist?</li></ul></div>
+      </div>
+      <p class="note">Sources include Informatica documentation, GOV.UK smart-meter guidance, Ofgem non-domestic billing transparency context and ICO AI/data-protection guidance. The ICO notes that its AI guidance is under review; verify current advice before production.</p>
+      <div class="footer"><span>Sources and interview Q&amp;A → docs/sources.md · docs/05-interview-walkthrough.md</span><span>07</span></div>
+    </section>
+    <div class="bar" aria-hidden="true"><i id="progress"></i></div>
+  </main>
+</div>
+<script>
+  (()=>{
+    const slides=[...document.querySelectorAll('.slide')], links=[...document.querySelectorAll('nav button')];
+    const counter=document.getElementById('counter'), title=document.getElementById('sectionTitle'), bar=document.getElementById('progress');
+    let current=0;
+    const show=(index)=>{
+      current=Math.max(0,Math.min(slides.length-1,index));
+      slides.forEach((s,i)=>{s.classList.toggle('active',i===current);s.setAttribute('aria-hidden',i===current?'false':'true')});
+      links.forEach((b,i)=>{if(i===current)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')});
+      counter.textContent=String(current+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
+      title.textContent=links[current].textContent.trim().replace(/^\d+\s*/, '');
+      bar.style.width=((current+1)/slides.length*100)+'%';
+      history.replaceState(null,'','#slide-'+(current+1));
+    };
+    links.forEach(b=>b.addEventListener('click',()=>show(Number(b.dataset.slide))));
+    document.getElementById('prev').addEventListener('click',()=>show(current-1));
+    document.getElementById('next').addEventListener('click',()=>show(current+1));
+    document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown')show(current+1);if(e.key==='ArrowLeft'||e.key==='PageUp')show(current-1)});
+    const match=location.hash.match(/slide-(\d+)/);if(match)show(Number(match[1])-1);else show(0);
+  })();
+</script>
+</body>
+</html>
